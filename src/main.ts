@@ -24,7 +24,15 @@ async function createSchemas() {
 async function bootstrap() {
   await createSchemas();
   const app = await NestFactory.create(AppModule);
-  app.enableCors();
+  app.enableCors({
+    origin: [
+      'https://prueba-render-frontend-1.onrender.com',
+      'http://localhost:3000',
+      'http://localhost:3001',
+    ],
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    credentials: true,
+  });
   await app.listen(process.env.PORT ?? 3000);
 }
 bootstrap();
